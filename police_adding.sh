@@ -22,8 +22,7 @@ do
 done
 
 fullfilename=$(basename "$1")
-filename="${fullfilename%.*}"
 
-mkvmerge -o "$filename" --default-track $var_idvid:yes --forced-track $var_idvid:no --language $var_idson:jpn --default-track $var_idson:yes --forced-track $var_idson:no --language $var_idss:fre --default-track $var_idss:yes --forced-track $var_idss:no --video-tracks $var_idvid --audio-tracks $var_idson --subtitle-tracks $var_idss --no-track-tags --no-global-tags "$1" $command
+mkvmerge -o "$fullfilename" --default-track $var_idvid:yes --forced-track $var_idvid:no --language $var_idson:jpn --default-track $var_idson:yes --forced-track $var_idson:no --language $var_idss:fre --default-track $var_idss:yes --forced-track $var_idss:no --video-tracks $var_idvid --audio-tracks $var_idson --subtitle-tracks $var_idss --no-track-tags --no-global-tags "$1" $command
 
 echo "FINI !"
