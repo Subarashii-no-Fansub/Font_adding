@@ -17,7 +17,7 @@ for ((i=2 ; $nombrearg-$i ; i++))
 do
   fullfilename=$(basename "$i")
   filename="${fullfilename%.*}"
-  attachemine=${file --brief --mime $i}
+  attachemine=$(file --brief --mime $i)
   command="$command --attachment-mime-type $attachemine  --attachment-name $filename --attach-file $i"
 done
 
