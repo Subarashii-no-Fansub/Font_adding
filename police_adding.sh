@@ -19,13 +19,8 @@ for ((i=2 ; $nombrearg+1-$i ; i++))
 do
 	fullfilename=$(basename "${!i}")
 	attachemine=$(file --brief --mime-type "${!i}")
-	commande=$(printf "%s --attachment-name \"%s\"  --attachment-mime-type \"%s\" --add-attachment \"%s\"" "$commande" "$fullfilename" "$attachemine" "${!i}")
+	commande=
+	mkvpropedit "$1" --attachment-name "$fullfilename" --attachment-mime-type "$attachemine" --add-attachment "${!i}"
 done
-
-fullfilename=$(basename "$1")
-
-echo $commande
-
-mkvpropedit "$1" $($commande)
 
 echo "FINI !"
