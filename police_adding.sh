@@ -4,23 +4,30 @@
 
 set -e
 
-chmod 644 "$1"
+if [ "$2" = "" ] ; then
+    echo "need args"
+    exit 1
+fi
 
-mkvmerge -i "$1"
-read -p "Numéro de la vidéo : " var_idvid
-read -p "Numéro du son : " var_idson
-read -p "Numéro des sous-titres : " var_idss
+name="$1"
+shift
 
-nombrearg="$#"
+chmod 644 "$name"
 
-commande=""
+cmd="mkvpropedit '$name'"
 
-for ((i=2 ; $nombrearg+1-$i ; i++))
+for ((i=0 ; $# ; i++))
 do
-	fullfilename=$(basename "${!i}")
-	attachemine=$(file --brief --mime-type "${!i}")
-	commande=
-	mkvpropedit "$1" --attachment-name "$fullfilename" --attachment-mime-type "$attachemine" --add-attachment "${!i}"
+	if [ ! -f "$1" ]; then
+	    echo "lost $1" ; shift ; continue
+	fi
+	filename="$(basename "$1")"
+	attachemine="$(file --brief --mime-type "$1")"
+
+	cmd="$cmd --attachment-name '$filename' --attachment-mime-type '$attachemine' --add-attachment '$1'"
+	shift
 done
+
+echo $(eval "$cmd")
 
 echo "FINI !"
