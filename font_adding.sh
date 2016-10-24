@@ -12,7 +12,7 @@ fi
 name="$1"
 shift
 
-chmod 644 "$name"
+#chmod 644 "$name"
 
 cmd="mkvpropedit '$name'"
 
